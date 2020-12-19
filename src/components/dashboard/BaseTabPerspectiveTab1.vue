@@ -10,42 +10,14 @@
 
             <b-col cols="4">
                 <b-row>
-                    <div v-for="(button, index) in updateGamepad.buttons.slice(0,4)" :key="index">
-                        <b-col cols="4">
-                            <BaseGamepadButtonImage :state="button"/>
-                        </b-col>
-                    </div>
-                </b-row>
-
-                <b-row>
-                    <div v-for="(button, index) in updateGamepad.buttons.slice(4,8)" :key="index">
-                        <b-col cols="4">
-                            <BaseGamepadButtonImage :state="button"/>
-                        </b-col>
-                    </div>
-                </b-row>
-
-                <b-row>
-                    <div v-for="(button, index) in updateGamepad.buttons.slice(8,12)" :key="index">
-                        <b-col cols="4">
-                            <BaseGamepadButtonImage :state="button"/>
-                        </b-col>
-                    </div>
-                </b-row>
-
-                <b-row>
-                    <div v-for="(button, index) in updateGamepad.buttons.slice(12,16)" :key="index">
-                        <b-col cols="4">
-                            <BaseGamepadButtonImage :state="button"/>
-                        </b-col>
-                    </div>
+                    <BaseGamepadButtonImage :state="updateGamepad.buttons[4]"/>
                 </b-row>
             </b-col>
 
 
             <b-col cols="6">
 
-                <div v-for="(axis, index) in updateGamepad.axes" :key="index"> 
+                <div v-for="(axis, index) in updateGamepad.axes.slice(2,4)" :key="index"> 
                     <b-row class="my-1">
                         <b-col sm="2">
                         </b-col>
@@ -76,6 +48,20 @@ export default {
         BaseGamepadButtonImage,
     },
 
+    data(){
+        return{
+            cmdIntervalId : 0,
+        }
+    },
+
+    mounted(){
+        this.cmdIntervalId = setInterval( this.handle_cmd_vel_topic , 100 )
+    },
+
+    beforeDestroy(){
+        clearInterval(this.cmdIntervalId)
+    },
+
     computed : {
         updateGamepad : {
             get(){
@@ -85,6 +71,22 @@ export default {
                 this.$store.dispatch("handle_variable", value);
             }
         },
+        updateRos : {
+            get(){
+                return this.$store.state.ros
+            },
+            set(value){
+                this.$store.dispatch("handle_variable", value);
+            }
+        },
     },
+
+    methods : {
+        handle_cmd_vel_topic : function(){
+            if (this.updateRos.status){
+                this.$store.dispatch("publish_topic_cmd_vel", {topic_name : "/cmd_vel", topic_msg_type : "geometry_msg/Twist"})
+            }
+        }
+    }
 }
 </script>

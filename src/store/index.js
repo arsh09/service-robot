@@ -12,7 +12,9 @@ export default new Vuex.Store({
       isConnect : false, 
       gamepad : {},
       buttons : [],
-      axes : []
+      axes : [],
+      max : 0.5,
+      min : -0.5,
     },
 
     ros : {
@@ -22,6 +24,7 @@ export default new Vuex.Store({
       port : 9090,
       status : null,
       error : null,
+      
     }
 
   },
@@ -62,10 +65,28 @@ export default new Vuex.Store({
         state.ros.client = null
         state.ros.status = null
       }
-
-      console.log(state.ros)
     },
 
+    _publish_topic_cmd_vel : function(state, payload){
+
+      if (state.ros.status){
+        var cmdVelTopic = new ROSLIB.Topic({
+          ros : state.ros.client, 
+          name : payload.topic_name,  
+          messageType : payload.topic_msg_type  
+        });
+  
+        var cmdVelMsg = new ROSLIB.Message({
+          linear : { x : -1 * state.gamepad.axes[3]  , y : 0, z : 0} ,
+          angular : { x : 0, y : 0, z : state.gamepad.axes[2] } 
+        })
+  
+        if (state.gamepad.buttons[4]){
+          cmdVelTopic.publish(cmdVelMsg)
+        }
+      }
+
+    }
   },
 
   actions: {
@@ -79,7 +100,12 @@ export default new Vuex.Store({
 
     disconnect_to_ros : function(context, payload) {
       context.commit("_disconnect_to_ros", payload)
+    },
+
+    publish_topic_cmd_vel : function(context, payload) {
+      context.commit("_publish_topic_cmd_vel", payload)
     }
+
   },
   modules: {}
 });

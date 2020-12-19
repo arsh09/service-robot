@@ -49,13 +49,16 @@ export default {
             var buttons = []
             var axes = []
             for (var j = 0; j < gp.buttons.length; j++) {
-              buttons.push(gp.buttons[j].pressed)
+             buttons.push(gp.buttons[j].pressed)
             }
             for (var k = 0; k < gp.axes.length; k++) {
-              axes.push(gp.axes[k])
+              if (gp.axes[k] > this.updateGamepad.max) { axes.push(this.updateGamepad.max) } 
+              else if (gp.axes[k] < this.updateGamepad.min) { axes.push(this.updateGamepad.min) }
+              else {axes.push(gp.axes[k])  } 
             }
-            this.updateGamepad.buttons = buttons
+
             this.updateGamepad.axes = axes
+            this.updateGamepad.buttons = buttons
           }
         }
       }
