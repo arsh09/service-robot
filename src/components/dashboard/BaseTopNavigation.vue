@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Joystick/>
     <b-navbar toggleable="lg" type="dark" variant="dark">
         <b-navbar-brand href="#">Service Robot</b-navbar-brand>
 
@@ -39,12 +38,10 @@
 
 <script>
 
-import Joystick from "@/components/Joystick.vue"
-
 export default {
     name : "BaseTopNavigation",
     components : {
-        Joystick
+        
     },
 
     data(){
