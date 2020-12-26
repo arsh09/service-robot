@@ -9,28 +9,21 @@
         <b-row>
             
             
-            <b-col cols="4">
+            <b-col cols="3">
                 <b-row>
                     <BaseGamepadButtonImage :state="updateGamepad.buttons[4]"/>
                 </b-row>
-            </b-col>
-
-
-            <b-col cols="6">
 
                 <div v-for="(axis, index) in updateGamepad.axes.slice(2,4)" :key="index"> 
-                    <b-row class="my-1">
-                        <b-col sm="2">
-                        </b-col>
-                        <b-col sm="10">
+                    <b-row > 
+                        <b-col>
                             <b-form-input disabled :value="axis" class="m-4" type="range" min=-1 max=1 step=0.01></b-form-input>
                         </b-col>
                     </b-row>
-
                 </div>
-
-                
             </b-col>
+
+
 
         </b-row>
 
