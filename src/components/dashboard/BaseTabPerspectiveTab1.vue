@@ -7,7 +7,8 @@
         </p>
 
         <b-row>
-
+            
+            
             <b-col cols="4">
                 <b-row>
                     <BaseGamepadButtonImage :state="updateGamepad.buttons[4]"/>
