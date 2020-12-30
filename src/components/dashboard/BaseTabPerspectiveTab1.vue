@@ -7,8 +7,6 @@
         </p>
 
         <b-row>
-            
-            
             <b-col cols="3">
                 <b-row>
                     <BaseGamepadButtonImage :state="updateGamepad.buttons[4]"/>
@@ -24,7 +22,9 @@
             </b-col>
 
 
-
+            <b-col cols="9">
+                <BaseCameraImage/>
+            </b-col>
         </b-row>
 
 
@@ -35,11 +35,13 @@
 <script>
 
 import BaseGamepadButtonImage from "@/components/dashboard/BaseGamepadButtonImage"
+import BaseCameraImage from "@/components/dashboard/BaseCameraImage"
 
 export default {
     name : "BaseTabPerspectiveTab1",
     components : {
         BaseGamepadButtonImage,
+        BaseCameraImage
     },
 
     data(){

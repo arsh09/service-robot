@@ -36,7 +36,9 @@ export default new Vuex.Store({
     },
 
     _connect_to_ros : function(state){
+      console.log("IP: ", 'ws://' + state.ros.ip + ':' + state.ros.port.toString())
       state.ros.client = new ROSLIB.Ros({
+      // url : 'ws://114.85.110.224:9090'
       url : 'ws://' + state.ros.ip + ':' + state.ros.port.toString()
       });
 
