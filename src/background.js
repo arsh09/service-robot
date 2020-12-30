@@ -5,6 +5,10 @@ import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 const isDevelopment = process.env.NODE_ENV !== "production";
 
+// Auto update
+import { autoUpdater } from "electron-updater"
+process.env.GH_TOKEN = "c3652945537844b2c2a4f4db831ac3dd638955e1"; autoUpdater.autoDownload = false; autoUpdater.checkForUpdates();
+
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } }
@@ -30,6 +34,7 @@ async function createWindow() {
     createProtocol("app");
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
+    autoUpdater.checkForUpdatesAndNotify()
   }
 }
 
@@ -78,120 +83,3 @@ if (isDevelopment) {
     });
   }
 }
-
-
-// After initial build process
-// const {hookupJoyStick} = require('@/common/joystick.js')
-
-var controller_config = {
-  "vendorID": 1133,
-  "productID": 49695,
-  "joysticks": [
-      {
-          "name": "left",
-          "x": {
-              "pin": 0
-          },
-          "y": {
-              "pin": 2
-          }
-      },
-      {
-          "name": "right",
-          "x": {
-              "pin": 4
-          },
-          "y": {
-              "pin": 6
-          }
-      }
-  ],
-  "buttons": [
-      {
-          "value": 64,
-          "pin": 10,
-          "name": "back"
-      },
-      {
-          "value": 128,
-          "pin": 10,
-          "name": "start"
-      },
-      {
-          "value": 28,
-          "pin": 11,
-          "name": "leftLeft"
-      },
-      {
-          "value": 4,
-          "pin": 11,
-          "name": "leftUp"
-      },
-      {
-          "value": 12,
-          "pin": 11,
-          "name": "leftRight"
-      },
-      {
-          "value": 20,
-          "pin": 11,
-          "name": "leftDown"
-      },
-      {
-          "value": 4,
-          "pin": 10,
-          "name": "X"
-      },
-      {
-          "value": 8,
-          "pin": 10,
-          "name": "Y"
-      },
-      {
-          "value": 1,
-          "pin": 10,
-          "name": "A"
-      },
-      {
-          "value": 2,
-          "pin": 10,
-          "name": "B"
-      },
-      {
-          "value": 16,
-          "pin": 10,
-          "name": "LB"
-      },
-      {
-          "value": 32,
-          "pin": 10,
-          "name": "RB"
-      },
-      {
-          "value": 255,
-          "pin": 9,
-          "name": "LT"
-      },
-      {
-          "value": 0,
-          "pin": 9,
-          "name": "RT"
-      }
-  ]
-}
-
-
-// function hookupJoyStick(){
-//   var GamePad = require( 'node-gamepad' );
-//   var controller = new GamePad(controller_config);
-//   controller.connect();
-  
-//   // controller.on( 'up:press', function() {
-//   //     console.log( 'up' );
-//   // } );
-//   // controller.on( 'down:press', function() {
-//   //     console.log( 'down' );
-//   // } );
-// }
-
-// hookupJoyStick()

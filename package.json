@@ -16,6 +16,7 @@
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.1",
     "core-js": "^3.6.5",
+    "electron-updater": "^4.3.5",
     "font-awesome": "^4.7.0",
     "joystick-logitech-f710": "^0.3.1",
     "jquery": "^3.5.1",
