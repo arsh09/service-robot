@@ -7,7 +7,15 @@ const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Auto update
 import { autoUpdater } from "electron-updater"
-process.env.GH_TOKEN = "c3652945537844b2c2a4f4db831ac3dd638955e1"; autoUpdater.autoDownload = false; autoUpdater.checkForUpdates();
+
+autoUpdater.setFeedURL({
+  provider: 'github',
+  repo: 'service-robot',
+  protocol: 'https',
+  owner: 'arsh09',
+  private: false,
+  token: '3d665476ac3a730c41d6027bf39cf704f927e7c1'
+})
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
