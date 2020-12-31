@@ -1,6 +1,8 @@
 {
   "name": "service-robot",
-  "version": "1.1.0",
+  "author": "Muhammad Arshad Khan",
+  "description": "A cross platform desktop environment to access Reeman robot through a bunch of local servers running on ROS machine",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

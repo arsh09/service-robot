@@ -13,8 +13,8 @@ autoUpdater.setFeedURL({
   repo: 'service-robot',
   protocol: 'https',
   owner: 'arsh09',
-  private: false,
-  token: '3d665476ac3a730c41d6027bf39cf704f927e7c1'
+  private: true,
+  token: '0aefe57deb228ecf57734267680531e2cec665d4'
 })
 
 // Scheme must be registered before the app is ready
